@@ -9,41 +9,20 @@ public class MatriculaService {
     private final List<Matricula> matriculas = new ArrayList<>();
 
     public Matricula crearMatricula(String dni, String curso, double precioBase, boolean bonificacion) {
-        validarDni(dni);
-        double precioFinal = calcularPrecio(precioBase, bonificacion);
-
-        Matricula m = new Matricula(dni, curso, LocalDate.now(), precioFinal);
+        // El servicio solo coordina: delega la lógica compleja a la entidad
+        Matricula m = new Matricula(dni, curso, precioBase, bonificacion);
         matriculas.add(m);
 
-        // Simulación de notificación (no I/O real, solo consola)
-        System.out.println("[AVISO] Matriculado " + dni + " en " + curso + " por " + precioFinal + "€");
+        System.out.println("[AVISO] Matriculado " + m.getDni() + " en " + m.getCurso() + " por " + m.getPrecioFinal() + "€");
         return m;
     }
 
     public String exportarResumen() {
-        String resultado = "RESUMEN MATRÍCULAS\n";
-
+        StringBuilder sb = new StringBuilder("RESUMEN MATRÍCULAS\n");
+        // El servicio ya no sabe CÓMO se formatea una matrícula, solo pide el dato
         for (Matricula m : matriculas) {
-            resultado += m.getDni() + " | "
-                    + m.getCurso() + " | "
-                    + m.getFecha() + " | "
-                    + m.getPrecioFinal() + "\n";
+            sb.append(m.toString());
         }
-
-        return resultado;
-    }
-
-    private void validarDni(String dni) {
-        if (dni == null || dni.isBlank() || dni.length() < 7) {
-            throw new IllegalArgumentException("DNI inválido");
-        }
-    }
-
-    private double calcularPrecio(double precioBase, boolean bonificacion) {
-        if (precioBase <= 0) throw new IllegalArgumentException("Precio inválido");
-        double total = precioBase;
-        if (bonificacion) total *= 0.85; // 15% descuento
-        // “Gastos de gestión” fijos
-        return total + 12.0;
+        return sb.toString();
     }
 }
