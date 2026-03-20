@@ -9,9 +9,13 @@ public class LibroReferencia extends Libro {
     }
 
     @Override
+    public boolean esPrestable() {
+        return false; // Notifica que no soporta préstamos externos
+    }
+    @Override
     public void prestarA(String dni, LocalDate fechaDevolucion) {
-        // Como no se pueden prestar, ponemos que se prestan a SALA
-        this.prestadoA = "SALA";
+        // Se le atribuye el dni de la persona a la que se ha prestado el lirbo
+        this.prestadoA = dni;
         this.fechaDevolucion = LocalDate.now();
     }
 }

@@ -10,7 +10,8 @@ El objetivo no es “reescribirlo todo”, sino **identificar el principio vulne
 
 ## Alumnos
 
-–
+- **Tomás Pérez Reche** - [@tprxd07](https://github.com/tprxd07)
+- **Jose Luis Moreno Dobao** - 
 
 ---
 
